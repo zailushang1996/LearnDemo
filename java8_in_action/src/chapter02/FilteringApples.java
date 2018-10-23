@@ -2,6 +2,7 @@ package chapter02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class FilteringApples {
     public static void main(String[] args) {
 
-        List<Apple> inventory = Arrays.asList(new Apple(80,"green"), new Apple(155, "green"), new Apple(120, "red"));
+        List<Apple> inventory = Arrays.asList(new Apple(80,"green"), new Apple(155, "green"), new Apple(155, "red"));
 
         List<Apple> greenApples = filter(inventory, new AppleColorPredicate());
         System.out.println(Arrays.toString(greenApples.toArray()));
@@ -25,7 +26,10 @@ public class FilteringApples {
 
         List<Apple> redApples = filter(inventory, apple -> "red".equals(apple.getColor()));
         System.out.println(redApples.toString());
-
+        System.out.println("=============");
+        System.out.println(inventory);
+        inventory.sort(Comparator.comparing(Apple::getWeight).thenComparing(Apple::getColor));
+        System.out.println(inventory);
 
     }
 
@@ -40,6 +44,9 @@ public class FilteringApples {
     }
 
     public static class Apple {
+        public Apple() {
+        }
+
         private int weight = 0;
         private String color = "";
 
